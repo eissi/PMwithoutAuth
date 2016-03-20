@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="07cb4923-9fb6-44a3-ad7b-3f101535fa3b" ChangeDateTime="03/10/2016 14:26:49">
+    <Property Name="ElementName" Value="[dbo].[Table3].[AM]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Table3]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AE" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ff0e2a23-8410-430b-a515-0c83eb54afe7" ChangeDateTime="03/10/2016 14:33:39">
+    <Property Name="ElementName" Value="[dbo].[FK_Table3_ToTable]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[Table3]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[ATU]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="b4c2a06e-5367-463f-afa4-3a24a34fc7a9" ChangeDateTime="03/10/2016 14:38:00">
+    <Property Name="ElementName" Value="[dbo].[ATU]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[Table3]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[fk_AUT]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="0705a8b5-f4ac-4310-a6b2-85ccb577b8ed" ChangeDateTime="03/10/2016 14:38:05">
+    <Property Name="ElementName" Value="[dbo].[fk_AUT]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[Table3]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[fk_ATU]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="79406380-1428-42b8-91f9-4a5f72adffa2" ChangeDateTime="03/12/2016 13:26:07">
+    <Property Name="ElementName" Value="[dbo].[DailyRecord].[Task]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[DailyRecord]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="TaskDescription" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ecd7cca8-9771-48e9-bc37-b5213ea9b436" ChangeDateTime="03/12/2016 13:39:11">
+    <Property Name="ElementName" Value="[dbo].[Project].[Internal]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Project]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ProjectType" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="85e339c6-f730-47d7-9039-02168f783db4" ChangeDateTime="03/14/2016 00:50:44">
+    <Property Name="ElementName" Value="[dbo].[DailyRecord].[CustomerName]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[DailyRecord]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Customer" />
+  </Operation>
+</Operations>

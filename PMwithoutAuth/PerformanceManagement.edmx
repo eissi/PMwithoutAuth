@@ -1,0 +1,390 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PerfMgtDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ATU">
+          <Key>
+            <PropertyRef Name="ATUname" />
+          </Key>
+          <Property Name="ATUname" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerName" />
+          </Key>
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AE" Type="nvarchar" MaxLength="10" />
+          <Property Name="PSS" Type="nvarchar" MaxLength="10" />
+          <Property Name="CSA" Type="nvarchar" MaxLength="10" />
+          <Property Name="DSA" Type="nvarchar" MaxLength="10" />
+          <Property Name="ATU" Type="nchar" MaxLength="10" />
+          <Property Name="C+E" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="DailyRecord">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="StartTime" Type="datetime" />
+          <Property Name="EndTime" Type="datetime" />
+          <Property Name="TaskDescription" Type="nvarchar" MaxLength="100" />
+          <Property Name="TaskType" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Customer" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="Customer" />
+          </Key>
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Customer" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProjectType" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ProjectType">
+          <Key>
+            <PropertyRef Name="ProjectTypeName" />
+          </Key>
+          <Property Name="ProjectTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TaskType">
+          <Key>
+            <PropertyRef Name="TaskTypeName" />
+          </Key>
+          <Property Name="TaskTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_ATU">
+          <End Role="ATU" Type="Self.ATU" Multiplicity="0..1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ATU">
+              <PropertyRef Name="ATUname" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="ATU" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Project" Type="Self.Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerName" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="Customer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectName">
+          <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
+          <End Role="DailyRecord" Type="Self.DailyRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectName" />
+              <PropertyRef Name="Customer" />
+            </Principal>
+            <Dependent Role="DailyRecord">
+              <PropertyRef Name="ProjectName" />
+              <PropertyRef Name="Customer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectType">
+          <End Role="ProjectType" Type="Self.ProjectType" Multiplicity="0..1" />
+          <End Role="Project" Type="Self.Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectType">
+              <PropertyRef Name="ProjectTypeName" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="ProjectType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaskType">
+          <End Role="TaskType" Type="Self.TaskType" Multiplicity="0..1" />
+          <End Role="DailyRecord" Type="Self.DailyRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskType">
+              <PropertyRef Name="TaskTypeName" />
+            </Principal>
+            <Dependent Role="DailyRecord">
+              <PropertyRef Name="TaskType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PerfMgtDBModelStoreContainer">
+          <EntitySet Name="ATU" EntityType="Self.ATU" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DailyRecord" EntityType="Self.DailyRecord" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectType" EntityType="Self.ProjectType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaskType" EntityType="Self.TaskType" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_ATU" Association="Self.fk_ATU">
+            <End Role="ATU" EntitySet="ATU" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer" Association="Self.FK_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectName" Association="Self.FK_ProjectName">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="DailyRecord" EntitySet="DailyRecord" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectType" Association="Self.FK_ProjectType">
+            <End Role="ProjectType" EntitySet="ProjectType" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskType" Association="Self.FK_TaskType">
+            <End Role="TaskType" EntitySet="TaskType" />
+            <End Role="DailyRecord" EntitySet="DailyRecord" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PerfMgtDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ATU">
+          <Key>
+            <PropertyRef Name="ATUname" />
+          </Key>
+          <Property Name="ATUname" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.fk_ATU" FromRole="ATU" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerName" />
+          </Key>
+          <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="PSS" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CSA" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DSA" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ATU" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="C_E" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ATU1" Relationship="Self.fk_ATU" FromRole="Customer" ToRole="ATU" />
+          <NavigationProperty Name="Project" Relationship="Self.FK_Customer" FromRole="Customer" ToRole="Project" />
+        </EntityType>
+        <EntityType Name="DailyRecord">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="StartTime" Type="DateTime" Precision="3" />
+          <Property Name="EndTime" Type="DateTime" Precision="3" />
+          <Property Name="TaskDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TaskType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Customer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Project" Relationship="Self.FK_ProjectName" FromRole="DailyRecord" ToRole="Project" />
+          <NavigationProperty Name="TaskType1" Relationship="Self.FK_TaskType" FromRole="DailyRecord" ToRole="TaskType" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="Customer" />
+          </Key>
+          <Property Name="ProjectName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Customer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProjectType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Customer1" Relationship="Self.FK_Customer" FromRole="Project" ToRole="Customer" />
+          <NavigationProperty Name="DailyRecord" Relationship="Self.FK_ProjectName" FromRole="Project" ToRole="DailyRecord" />
+          <NavigationProperty Name="ProjectType1" Relationship="Self.FK_ProjectType" FromRole="Project" ToRole="ProjectType" />
+        </EntityType>
+        <EntityType Name="ProjectType">
+          <Key>
+            <PropertyRef Name="ProjectTypeName" />
+          </Key>
+          <Property Name="ProjectTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Project" Relationship="Self.FK_ProjectType" FromRole="ProjectType" ToRole="Project" />
+        </EntityType>
+        <EntityType Name="TaskType">
+          <Key>
+            <PropertyRef Name="TaskTypeName" />
+          </Key>
+          <Property Name="TaskTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="DailyRecord" Relationship="Self.FK_TaskType" FromRole="TaskType" ToRole="DailyRecord" />
+        </EntityType>
+        <Association Name="fk_ATU">
+          <End Role="ATU" Type="Self.ATU" Multiplicity="0..1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ATU">
+              <PropertyRef Name="ATUname" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="ATU" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Project" Type="Self.Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerName" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="Customer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectName">
+          <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
+          <End Role="DailyRecord" Type="Self.DailyRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectName" />
+              <PropertyRef Name="Customer" />
+            </Principal>
+            <Dependent Role="DailyRecord">
+              <PropertyRef Name="ProjectName" />
+              <PropertyRef Name="Customer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaskType">
+          <End Role="TaskType" Type="Self.TaskType" Multiplicity="0..1" />
+          <End Role="DailyRecord" Type="Self.DailyRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskType">
+              <PropertyRef Name="TaskTypeName" />
+            </Principal>
+            <Dependent Role="DailyRecord">
+              <PropertyRef Name="TaskType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectType">
+          <End Role="ProjectType" Type="Self.ProjectType" Multiplicity="0..1" />
+          <End Role="Project" Type="Self.Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectType">
+              <PropertyRef Name="ProjectTypeName" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="ProjectType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PerfMgtDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ATU" EntityType="Self.ATU" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" />
+          <EntitySet Name="DailyRecord" EntityType="Self.DailyRecord" />
+          <EntitySet Name="Project" EntityType="Self.Project" />
+          <EntitySet Name="ProjectType" EntityType="Self.ProjectType" />
+          <EntitySet Name="TaskType" EntityType="Self.TaskType" />
+          <AssociationSet Name="fk_ATU" Association="Self.fk_ATU">
+            <End Role="ATU" EntitySet="ATU" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer" Association="Self.FK_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectName" Association="Self.FK_ProjectName">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="DailyRecord" EntitySet="DailyRecord" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskType" Association="Self.FK_TaskType">
+            <End Role="TaskType" EntitySet="TaskType" />
+            <End Role="DailyRecord" EntitySet="DailyRecord" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectType" Association="Self.FK_ProjectType">
+            <End Role="ProjectType" EntitySet="ProjectType" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PerfMgtDBModelStoreContainer" CdmEntityContainer="PerfMgtDBEntities">
+          <EntitySetMapping Name="ATU">
+            <EntityTypeMapping TypeName="PerfMgtDBModel.ATU">
+              <MappingFragment StoreEntitySet="ATU">
+                <ScalarProperty Name="ATUname" ColumnName="ATUname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customer">
+            <EntityTypeMapping TypeName="PerfMgtDBModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="AE" ColumnName="AE" />
+                <ScalarProperty Name="PSS" ColumnName="PSS" />
+                <ScalarProperty Name="CSA" ColumnName="CSA" />
+                <ScalarProperty Name="DSA" ColumnName="DSA" />
+                <ScalarProperty Name="ATU" ColumnName="ATU" />
+                <ScalarProperty Name="C_E" ColumnName="C+E" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DailyRecord">
+            <EntityTypeMapping TypeName="PerfMgtDBModel.DailyRecord">
+              <MappingFragment StoreEntitySet="DailyRecord">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="TaskDescription" ColumnName="TaskDescription" />
+                <ScalarProperty Name="TaskType" ColumnName="TaskType" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Project">
+            <EntityTypeMapping TypeName="PerfMgtDBModel.Project">
+              <MappingFragment StoreEntitySet="Project">
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="ProjectType" ColumnName="ProjectType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectType">
+            <EntityTypeMapping TypeName="PerfMgtDBModel.ProjectType">
+              <MappingFragment StoreEntitySet="ProjectType">
+                <ScalarProperty Name="ProjectTypeName" ColumnName="ProjectTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskType">
+            <EntityTypeMapping TypeName="PerfMgtDBModel.TaskType">
+              <MappingFragment StoreEntitySet="TaskType">
+                <ScalarProperty Name="TaskTypeName" ColumnName="TaskTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

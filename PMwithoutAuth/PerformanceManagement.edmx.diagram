@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e07b6f06e4744c8b91c162745a8b45ff" Name="Diagram1">
+        <EntityTypeShape EntityType="PerfMgtDBModel.ATU" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PerfMgtDBModel.Customer" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="PerfMgtDBModel.DailyRecord" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="PerfMgtDBModel.Project" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PerfMgtDBModel.ProjectType" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PerfMgtDBModel.TaskType" Width="1.5" PointX="5.25" PointY="5.625" IsExpanded="true" />
+        <AssociationConnector Association="PerfMgtDBModel.fk_ATU" ManuallyRouted="false" />
+        <AssociationConnector Association="PerfMgtDBModel.FK_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="PerfMgtDBModel.FK_ProjectName" ManuallyRouted="false" />
+        <AssociationConnector Association="PerfMgtDBModel.FK_TaskType" ManuallyRouted="false" />
+        <AssociationConnector Association="PerfMgtDBModel.FK_ProjectType" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

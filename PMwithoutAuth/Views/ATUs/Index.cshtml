@@ -1,0 +1,31 @@
+﻿@model IEnumerable<PMwithoutAuth.ATU>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ATUname)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr><td>
+    @Html.DisplayFor(modelItem => item.ATUname)
+</td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ATUname }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ATUname }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ATUname })
+        </td>
+    </tr>
+}
+
+</table>
